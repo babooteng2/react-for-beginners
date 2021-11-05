@@ -6,22 +6,18 @@
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.16.2/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    let counter = 0;
-    function countUp() {
-      counter = counter + 1;
-      render();
-    }
-    function Container() {
+    function App() {
+      const [counter, setCounter] = React.useState(0);
+      const clickHdr = () => {
+        setCounter(counter + 1);
+      };
       return (
         <div>
           <h3>Total clicks: {counter}</h3>
-          <button onClick={countUp}>Clcik me</button>
+          <button onClick={clickHdr}>Clcik me</button>
         </div>
       );
     }
-    function render() {
-      ReactDOM.render(<Container />, root);
-    }
-    render();
+    ReactDOM.render(<App />, root);
   </script>
 </html>
