@@ -6,25 +6,38 @@
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.16.2/babel.min.js"></script>
   <script type="text/babel">
     function App() {
-      const [min, setMin] = React.useState();
+      const [min, setMin] = React.useState(0);
 
       const onChange = (e) => {
         setMin(e.target.value);
+      };
+      const resetHdr = () => {
+        setMin(0);
       };
       return (
         <div>
           <h1>Super converter</h1>
           <label htmlFor="minutes">Minutes</label>
-          <input
-            value={min}
-            id="minutes"
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-          />
-          <h4>You want convert {min}</h4>
-          <label htmlFor="hours">Hours</label>
-          <input id="hours" placeholder="Hours" type="number" />
+          <div>
+            <input
+              value={min}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              value={Math.round(min / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              disabled
+            />
+          </div>
+          <input type="button" value="reset" onClick={resetHdr} />
         </div>
       );
     }
