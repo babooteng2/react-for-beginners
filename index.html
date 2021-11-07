@@ -6,13 +6,17 @@
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.16.2/babel.min.js"></script>
   <script type="text/babel">
     function App() {
-      const [min, setMin] = React.useState(0);
-
+      const [amount, setAmount] = React.useState(0);
+      const [flipped, setFlipped] = React.useState(false);
       const onChange = (e) => {
-        setMin(e.target.value);
+        setAmount(e.target.value);
       };
-      const resetHdr = () => {
-        setMin(0);
+      const reset = () => {
+        setAmount(0);
+      };
+      const onFlip = () => {
+        reset();
+        setFlipped((flag) => !flag);
       };
       return (
         <div>
@@ -20,24 +24,27 @@
           <label htmlFor="minutes">Minutes</label>
           <div>
             <input
-              value={min}
+              value={flipped ? Math.round(amount * 60) : amount}
               id="minutes"
               placeholder="Minutes"
               type="number"
+              disabled={flipped}
               onChange={onChange}
             />
           </div>
           <div>
             <label htmlFor="hours">Hours</label>
             <input
-              value={Math.round(min / 60)}
+              value={flipped ? amount : Math.round(amount / 60)}
               id="hours"
               placeholder="Hours"
               type="number"
-              disabled
+              disabled={!flipped}
+              onChange={onChange}
             />
           </div>
-          <input type="button" value="reset" onClick={resetHdr} />
+          <input type="button" value="reset" onClick={reset} />
+          <input type="button" value="flip" onClick={onFlip} />
         </div>
       );
     }
